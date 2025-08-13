@@ -20,9 +20,10 @@ class Game
 
   def start_game
     while @board.board.include?(' ')
+      @board.display_board
       position = @board.valid_position?
       @board.mark_board(current_player.symbol, position)
-      # break if game_won?
+      break if game_won?
 
       next_player
     end
@@ -34,12 +35,24 @@ class Game
     @current_player = player_one
   end
 
+  def game_won?
+    WINNING_COMBINATIONS.each do |combo|
+      if winning_line?(combo)
+        puts "#{@current_player.name} wins!"
+        return true
+      end
+    end
+  end
 
-  # def game_won?
-  #   WINNING_COMBINATIONS.each do |arr|
-  #     @board.board.values_at(*arr).all? do |symbol|
-  #       symbol == 'x' || symbol == 'o'
-  #     end
-  #   end
-  # end
+  def winning_line?(combo)
+    win = []
+    win.push(@board.board[combo[0]])
+    win.push(@board.board[combo[1]])
+    win.push(@board.board[combo[2]])
+    all_equal?(win)
+  end
+
+  def all_equal?(arr)
+    arr.uniq.size == 1
+  end
 end
