@@ -8,6 +8,12 @@ module Helpers
 
   def symbol_position
     puts 'Pick a position'
-    gets.chomp.to_i
+    begin
+      input = gets.chomp
+      Integer(input)
+    rescue ArgumentError
+      puts 'Enter a valid number'
+      retry
+    end
   end
 end

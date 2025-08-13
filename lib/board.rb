@@ -12,10 +12,6 @@ class Board
   end
 
   def mark_board(symbol, position)
-    valid_symbol?(symbol)
-    valid_position?(position)
-    valid_position_number?(position)
-
     @board[position] = symbol
     display_board
   end
@@ -29,18 +25,35 @@ class Board
     puts ''
   end
 
+  def valid_position?
+    loop do
+      position = symbol_position
+      if valid_range?(position) && position_empty?(position)
+        return position
+      elsif !valid_range?(position)
+        warn_invalid_range
+      else
+        warn_position_taken
+      end
+    end
+  end
+
   private
 
-  def valid_symbol?(symbol)
-    raise 'Invalid symbol, must be x or o' unless VALID_SYMBOLS.include?(symbol)
+  def valid_range?(position)
+    VALID_POSITIONS.include?(position)
   end
 
-  def valid_position?(position)
-    raise 'Invalid position, pick an empty position' unless @board[position] == ' '
+  def position_empty?(position)
+    @board[position] == ' '
   end
 
-  def valid_position_number?(position)
-    raise 'Invalid position number, numbers must be between 0-9' unless VALID_POSITIONS.include?(position)
+  def warn_invalid_range
+    puts 'Invalid position number, numbers must be between 0-9'
+  end
+
+  def warn_position_taken
+    puts 'Invalid position, pick an empty position'
   end
 end
 

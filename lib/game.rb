@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+require_relative 'board'
 require_relative 'helper'
 class Game
   include Helpers
@@ -18,7 +20,7 @@ class Game
 
   def start_game
     while @board.board.include?(' ')
-      position = symbol_position
+      position = @board.valid_position?
       @board.mark_board(current_player.symbol, position)
       # break if game_won?
 
@@ -32,12 +34,12 @@ class Game
     @current_player = player_one
   end
 
-  def game_won?
-    WINNING_COMBINATIONS.each do |arr|
-      @board.board.values_at(*arr).all? do |symbol|
-        symbol == 'x' || symbol == 'o'
-      end
-    end
-  end
 
+  # def game_won?
+  #   WINNING_COMBINATIONS.each do |arr|
+  #     @board.board.values_at(*arr).all? do |symbol|
+  #       symbol == 'x' || symbol == 'o'
+  #     end
+  #   end
+  # end
 end
