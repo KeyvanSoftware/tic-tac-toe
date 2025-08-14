@@ -3,13 +3,13 @@
 require_relative 'lib/player'
 require_relative 'lib/board'
 require_relative 'lib/game'
-require_relative 'lib/helper'
+require_relative 'lib/player_input'
 
 board = Board.new
 
-name = player_name('Player one')
+name = PlayerInput.player_name('Player one')
 player_one = Player.new(name, 'x')
-name = player_name('Player two')
+name = PlayerInput.player_name('Player two')
 player_two = Player.new(name, 'o')
 
 game = Game.new(board, player_one, player_two)

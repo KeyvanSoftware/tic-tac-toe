@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'board'
-require_relative 'helper'
+require_relative 'player_input'
 class Game
-  include Helpers
   attr_reader :player_one, :player_two, :current_player
 
   WINNING_COMBINATIONS = [
@@ -42,6 +41,7 @@ class Game
         return true
       end
     end
+    false
   end
 
   def winning_line?(combo)
@@ -53,6 +53,6 @@ class Game
   end
 
   def all_equal?(arr)
-    arr.uniq.size == 1
+    arr.uniq.size == 1 && arr.uniq != [' ']
   end
 end

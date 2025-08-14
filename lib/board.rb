@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
-require_relative 'helper'
+require_relative 'player_input'
 class Board
-  include Helpers
   attr_reader :board
 
   VALID_SYMBOLS = %w[x o].freeze
   VALID_POSITIONS = (0..8).to_a.freeze
 
   def initialize
-    # @board = Array.new(9, ' ')
-    @board = ['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' ']
+    @board = Array.new(9, ' ')
   end
 
   def mark_board(symbol, position)
@@ -28,7 +26,7 @@ class Board
 
   def valid_position?
     loop do
-      position = symbol_position
+      position = PlayerInput.symbol_position
       if valid_range?(position) && position_empty?(position)
         return position
       elsif !valid_range?(position)

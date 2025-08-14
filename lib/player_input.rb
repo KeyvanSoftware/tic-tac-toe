@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-module Helpers
-  def player_name(player_number)
+class PlayerInput
+  def self.player_name(player_number)
     puts "#{player_number}, what is your name?"
     gets.chomp
   end
 
-  def symbol_position
+  def self.symbol_position
     puts 'Pick a position'
     begin
       input = gets.chomp
