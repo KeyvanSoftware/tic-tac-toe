@@ -4,6 +4,11 @@ require_relative 'player_input'
 class Board
   attr_reader :board
 
+  WINNING_COMBINATIONS = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
+    [1, 4, 7], [2, 5, 8], [6, 4, 2], [0, 4, 8]
+  ].freeze
+
   VALID_SYMBOLS = %w[x o].freeze
   VALID_POSITIONS = (0..8).to_a.freeze
 
@@ -35,6 +40,29 @@ class Board
         warn_position_taken
       end
     end
+  end
+
+  def game_won?
+    WINNING_COMBINATIONS.each do |combo|
+      return true if winning_line?(combo)
+    end
+    false
+  end
+
+  def winning_line?(combo)
+    win = []
+    win.push(board[combo[0]])
+    win.push(board[combo[1]])
+    win.push(board[combo[2]])
+    all_equal?(win)
+  end
+
+  def all_equal?(arr)
+    arr.uniq.size == 1 && arr.uniq != [' ']
+  end
+
+  def empty_positions?
+    board.include?(' ')
   end
 
   private
